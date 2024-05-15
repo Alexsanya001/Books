@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>AllBooks</title>
+</head>
+<body>
+<div th:each="book:${allBooks}">
+    <p th:text="${book.getTitle()}"></p>
+    <p th:text="${book.getAuthor().getName()}"></p>
+    <p th:text="${book.genre.getTranslate()}"></p>
+</div>
+
+<div th:each="genre : ${genres}">
+    <p th:text="${genre.getTranslate()}"></p>
+</div>
+</body>
+</html>
