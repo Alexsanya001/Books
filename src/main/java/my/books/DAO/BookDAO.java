@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Repository
-public class BookDAO{
+public class BookDAO {
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -71,9 +71,33 @@ public class BookDAO{
     public void delete(int id) {
         jdbcTemplate.update("DELETE FROM books WHERE id = ?", id);
         jdbcTemplate.update("DELETE FROM authors a WHERE NOT EXISTS" +
-                                "(SELECT author_id FROM books b WHERE a.id = b.author_id)");
+                "(SELECT author_id FROM books b WHERE a.id = b.author_id)");
         jdbcTemplate.update("DELETE FROM genres g WHERE NOT EXISTS" +
-                                "(SELECT genre_id FROM books b WHERE g.id = b.genre_id)");
+                "(SELECT genre_id FROM books b WHERE g.id = b.genre_id)");
+    }
+
+    public void update(Book updatedBook, int id) {
+        jdbcTemplate.update("""
+                        WITH new_author AS
+                        (INSERT INTO authors(name) VALUES (?)
+                        ON CONFLICT DO NOTHING RETURNING id
+                        ),
+                        new_genre AS
+                        (INSERT INTO genres(g_title) VALUES (?)
+                        ON CONFLICT DO NOTHING RETURNING id
+                        )
+                        UPDATE books SET b_title = ?,
+                        author_id = COALESCE((SELECT id FROM new_author),(SELECT id FROM authors WHERE name=?)),
+                        genre_id = COALESCE((SELECT id FROM new_genre),(SELECT id FROM genres WHERE g_title=?))
+                        WHERE id = ?""", updatedBook.getAuthor().getName(), updatedBook.getGenre().name(),
+                        updatedBook.getTitle(), updatedBook.getAuthor().getName(),
+                        updatedBook.getGenre().name(), id);
+
+        jdbcTemplate.update("DELETE FROM authors a WHERE NOT EXISTS" +
+                "(SELECT author_id FROM books b WHERE a.id = b.author_id)");
+
+        jdbcTemplate.update("DELETE FROM genres g WHERE NOT EXISTS" +
+                "(SELECT genre_id FROM books b WHERE g.id = b.genre_id)");
     }
 
 }

@@ -1,6 +1,7 @@
 package my.books.controllers;
 
 import my.books.DAO.BookDAO;
+import my.books.models.Author;
 import my.books.models.Book;
 import my.books.models.Genre;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +21,13 @@ public class MainController {
     }
 
     @GetMapping
-    public String index() {
+    public String index(@ModelAttribute("a_book") Book book,
+                        @ModelAttribute("an_author") Author author, Model model) {
+        model.addAttribute("genres", Genre.values());
         return "index";
     }
 
-    @GetMapping("/allBooks")
-    public String allBooks(@ModelAttribute("book") Book book, Model model){
-        model.addAttribute("allBooks", bookDAO.findAll());
-        model.addAttribute("genres", Genre.values());
-        return "allBooks";
-    }
+
 
 
 }
