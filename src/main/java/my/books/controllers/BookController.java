@@ -15,43 +15,43 @@ public class BookController {
     private final BookDAO bookDAO;
 
     @Autowired
-    public BookController(BookDAO bookDAO){
+    public BookController(BookDAO bookDAO) {
         this.bookDAO = bookDAO;
     }
 
     @GetMapping("/allBooks")
-    public String allBooks(@ModelAttribute("book") Book book, Model model){
+    public String allBooks(@ModelAttribute("book") Book book, Model model) {
         model.addAttribute("allBooks", bookDAO.findAll());
         model.addAttribute("genres", Genre.values());
         return "books/allBooks";
     }
 
     @GetMapping("/{id}")
-    public String showBook(@PathVariable("id") int id, Model model){
+    public String showBook(@PathVariable("id") int id, Model model) {
         model.addAttribute("book", bookDAO.findById(id));
         return "books/showBook";
     }
 
     @PostMapping
-    public String save(@ModelAttribute("a_book") Book book, Model model){
+    public String save(@ModelAttribute("a_book") Book book, Model model) {
         model.addAttribute("id", bookDAO.save(book));
         return "redirect:/books/allBooks";
     }
 
     @DeleteMapping("{id}")
-    public String delete(@PathVariable("id") int id){
+    public String delete(@PathVariable("id") int id) {
         bookDAO.delete(id);
         return "redirect:/books/allBooks";
     }
 
     @GetMapping("{id}/edit")
-    public String edit(@PathVariable("id") int id, Model model){
+    public String edit(@PathVariable("id") int id, Model model) {
         model.addAttribute("book", bookDAO.findById(id));
         return "books/edit";
     }
 
     @PatchMapping("{id}")
-    public String update(@PathVariable("id") int id, @ModelAttribute("book") Book book){
+    public String update(@PathVariable("id") int id, @ModelAttribute("book") Book book) {
         bookDAO.update(book, id);
         return "redirect:/books/allBooks";
     }

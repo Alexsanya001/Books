@@ -1,6 +1,5 @@
 package my.books.models;
 
-
 public enum Genre {
 
     NOVEL("Роман"),
@@ -15,9 +14,9 @@ public enum Genre {
 
     public String getTranslate() {
         return translate;
-   }
+    }
 
-   Genre(String translate) {
+    Genre(String translate) {
         this.translate = translate;
     }
 }

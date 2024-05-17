@@ -90,8 +90,8 @@ public class BookDAO {
                         author_id = COALESCE((SELECT id FROM new_author),(SELECT id FROM authors WHERE name=?)),
                         genre_id = COALESCE((SELECT id FROM new_genre),(SELECT id FROM genres WHERE g_title=?))
                         WHERE id = ?""", updatedBook.getAuthor().getName(), updatedBook.getGenre().name(),
-                        updatedBook.getTitle(), updatedBook.getAuthor().getName(),
-                        updatedBook.getGenre().name(), id);
+                updatedBook.getTitle(), updatedBook.getAuthor().getName(),
+                updatedBook.getGenre().name(), id);
 
         jdbcTemplate.update("DELETE FROM authors a WHERE NOT EXISTS" +
                 "(SELECT author_id FROM books b WHERE a.id = b.author_id)");

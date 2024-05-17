@@ -3,7 +3,7 @@ package my.books.models;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Book{
+public class Book {
 
     private int id;
     private String title;
@@ -15,7 +15,9 @@ public class Book{
         this.author = author;
         this.genre = genre;
     }
-    public Book(){}
+
+    public Book() {
+    }
 
     public Genre getGenre() {
         return genre;
