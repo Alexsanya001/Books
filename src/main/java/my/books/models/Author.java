@@ -8,6 +8,11 @@ public class Author {
     private int id;
     private String name;
 
+    public Author(){}
+    public Author(String name){
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
@@ -25,10 +30,7 @@ public class Author {
         this.id = id;
     }
 
-    public Author(){}
-    public Author(String name){
-        this.name = name;
-    }
+
 
 
 }

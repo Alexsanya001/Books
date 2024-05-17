@@ -13,17 +13,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 @Controller
 public class MainController {
 
-    private final BookDAO bookDAO;
-
-    @Autowired
-    public MainController(BookDAO bookDAO){
-        this.bookDAO = bookDAO;
+    public MainController(){
     }
 
     @GetMapping
-    public String index(@ModelAttribute("a_book") Book book,
-                        @ModelAttribute("an_author") Author author, Model model) {
-        model.addAttribute("genres", Genre.values());
+    public String index() {
         return "index";
     }
 

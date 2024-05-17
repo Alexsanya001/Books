@@ -1,8 +1,8 @@
 package my.books.controllers;
 
 import my.books.DAO.BookDAO;
-import my.books.DAO.GenreDAO;
 import my.books.models.Book;
+import my.books.models.Genre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,18 +13,16 @@ import org.springframework.web.bind.annotation.*;
 public class BookController {
 
     private final BookDAO bookDAO;
-    private final GenreDAO genreDAO;
 
     @Autowired
-    public BookController(BookDAO bookDAO, GenreDAO genreDAO){
+    public BookController(BookDAO bookDAO){
         this.bookDAO = bookDAO;
-        this.genreDAO = genreDAO;
     }
 
     @GetMapping("/allBooks")
     public String allBooks(@ModelAttribute("book") Book book, Model model){
         model.addAttribute("allBooks", bookDAO.findAll());
-        model.addAttribute("genres", genreDAO.findAll());
+        model.addAttribute("genres", Genre.values());
         return "books/allBooks";
     }
 

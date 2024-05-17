@@ -10,28 +10,6 @@
 <body>
 <h1>Hello World!</h1>
 <a href="books/allBooks">Все книги</a>
-<div>
-    <div class="modal-body">
-        <div class="form-container">
-            <form id="form" th:method="POST" th:object="${a_book}" th:action="@{/books}">
-                <div class="input-div"><label for="title">Название: </label>
-                    <input type="text" th:field="*{title}" id="title" required/></div>
-                <div class="input-div"><label for="author">Автор: </label>
-                    <input type="text" th:field="*{author.name}" id="author"/></div>
-                <div class="input-div"><label for="genre">Жанр: </label>
-                    <select id="genre" th:field="*{genre}">
-                        <option th:each="genre : ${genres}" th:value="${genre.name()}"
-                                th:text="${genre.getTranslate()}"></option>
-                    </select>
-                </div>
-            </form>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть
-                </button>
-                <button type="submit" class="btn btn-primary" form="form">Создать</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 </body>
 </html>
