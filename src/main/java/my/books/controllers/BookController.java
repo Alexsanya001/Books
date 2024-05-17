@@ -1,6 +1,5 @@
 package my.books.controllers;
 
-import my.books.DAO.AuthorDAO;
 import my.books.DAO.BookDAO;
 import my.books.DAO.GenreDAO;
 import my.books.models.Book;
