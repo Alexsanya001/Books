@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+</head>
+<body>
+<div>
+  <div class="modal-body">
+    <div class="form-container">
+      <form id="form" th:method="PATCH" th:object="${book}" th:action="@{/books/{id} (id = ${book.getId()})}">
+        <div class="input-div"><label for="title">Название: </label>
+          <input type="text" th:field="*{title}" id="title" required/></div>
+        <div class="input-div"><label for="author">Автор: </label>
+          <input type="text" th:field="*{author.name}" id="author"/></div>
+        <div class="input-div"><label for="genre">Жанр: </label>
+          <input type="text" th:field="*{genre}" id="genre"/></div>
+      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть
+        </button>
+        <button type="submit" class="btn btn-primary" form="form">Создать</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
