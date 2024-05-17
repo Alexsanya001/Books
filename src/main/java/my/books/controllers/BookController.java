@@ -14,11 +14,10 @@ import org.springframework.web.bind.annotation.*;
 public class BookController {
 
     private final BookDAO bookDAO;
-    private final AuthorDAO authorDAO;
     private final GenreDAO genreDAO;
+
     @Autowired
-    public BookController(BookDAO bookDAO, AuthorDAO authorDAO, GenreDAO genreDAO){
-        this.authorDAO = authorDAO;
+    public BookController(BookDAO bookDAO, GenreDAO genreDAO){
         this.bookDAO = bookDAO;
         this.genreDAO = genreDAO;
     }
@@ -27,14 +26,13 @@ public class BookController {
     public String allBooks(@ModelAttribute("book") Book book, Model model){
         model.addAttribute("allBooks", bookDAO.findAll());
         model.addAttribute("genres", genreDAO.findAll());
-        model.addAttribute("authors", authorDAO.findAll());
-        return "allBooks";
+        return "books/allBooks";
     }
 
     @GetMapping("/{id}")
     public String showBook(@PathVariable("id") int id, Model model){
-        model.addAttribute("book", bookDAO.show(id));
-        return "showBook";
+        model.addAttribute("book", bookDAO.findById(id));
+        return "books/showBook";
     }
 
     @PostMapping
@@ -51,8 +49,8 @@ public class BookController {
 
     @GetMapping("{id}/edit")
     public String edit(@PathVariable("id") int id, Model model){
-        model.addAttribute("book", bookDAO.show(id));
-        return "edit";
+        model.addAttribute("book", bookDAO.findById(id));
+        return "books/edit";
     }
 
     @PatchMapping("{id}")

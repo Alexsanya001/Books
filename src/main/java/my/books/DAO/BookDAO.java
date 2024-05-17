@@ -27,7 +27,7 @@ public class BookDAO {
                 "JOIN genres g ON b.genre_id = g.id", new BookMapper());
     }
 
-    public Book show(int id) {
+    public Book findById(int id) {
         return jdbcTemplate.query("SELECT b.id, b.b_title, a.name, g.g_title " +
                         "from books b " +
                         "join authors a on b.author_id = a.id " +
