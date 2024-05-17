@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:each="genre : ${genres}">
+    <a th:href="@{/genres/{g_title} (g_title = ${genre.name()})}"><p th:text="${genre.getTranslate()}"></p></a>
+</div>
+</body>
+</html>

@@ -19,7 +19,11 @@
                 <div class="input-div"><label for="author">Автор: </label>
                     <input type="text" th:field="*{author.name}" id="author"/></div>
                 <div class="input-div"><label for="genre">Жанр: </label>
-                    <input type="text" th:field="*{genre}" id="genre"/></div>
+                    <select id="genre" th:field="*{genre}">
+                        <option th:each="genre : ${genres}" th:value="${genre.name()}"
+                                th:text="${genre.getTranslate()}"></option>
+                    </select>
+                </div>
             </form>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть

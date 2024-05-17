@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${a_genre.getTranslate()}"></title>
+</head>
+<body>
+<div class="col-lg-8 col-md-12">
+    <div class="row container-cards my-5">
+        <div class="col-lg-3 col-md-6 my-3" th:each="book :${genreBooks}">
+            <a th:href="@{/books/{id} (id=${book.getId()})}">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${book.getTitle()}">book</h5>
+                        <p class="card-text" th:text="${book.getAuthor().name}">info</p>
+                        <div class="card-buttons">
+                            <a th:href="@{/books/{id}/edit (id=${book.getId()})}"
+                               class="btn btn-primary card-button">Edit</a>
+                            <form class="card-button" th:method="DELETE"
+                                  th:action="@{/books/{id} (id = ${book.getId()})}">
+                                <input class="btn btn-primary" type="submit" value="Delete"/>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
