@@ -19,7 +19,7 @@ public class BookController {
         this.bookDAO = bookDAO;
     }
 
-    @GetMapping("/allBooks")
+    @GetMapping
     public String allBooks(@ModelAttribute("book") Book book, Model model) {
         model.addAttribute("allBooks", bookDAO.findAll());
         model.addAttribute("genres", Genre.values());
@@ -35,13 +35,13 @@ public class BookController {
     @PostMapping
     public String save(@ModelAttribute("a_book") Book book, Model model) {
         model.addAttribute("id", bookDAO.save(book));
-        return "redirect:/books/allBooks";
+        return "redirect:/books";
     }
 
     @DeleteMapping("{id}")
     public String delete(@PathVariable("id") int id) {
         bookDAO.delete(id);
-        return "redirect:/books/allBooks";
+        return "redirect:/books";
     }
 
     @GetMapping("{id}/edit")
@@ -53,6 +53,6 @@ public class BookController {
     @PatchMapping("{id}")
     public String update(@PathVariable("id") int id, @ModelAttribute("book") Book book) {
         bookDAO.update(book, id);
-        return "redirect:/books/allBooks";
+        return "redirect:/books";
     }
 }
